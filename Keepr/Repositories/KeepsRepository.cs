@@ -32,7 +32,7 @@ namespace Keepr.Repositories
       var sql = @"SELECT * 
       FROM keeps k
       JOIN accounts a ON a.id = k.creatorId
-      WHERE id = @id";
+      WHERE k.id = @id";
       return _db.Query<Keep, Account, Keep>(sql, (k, a) =>
       {
         k.Creator = a;
@@ -55,7 +55,6 @@ namespace Keepr.Repositories
       string sql = @"
       UPDATE keeps
       SET
-      creatorId = @CreatorId,
       name = @Name,
       description = @Description,
       tag = @Tag,

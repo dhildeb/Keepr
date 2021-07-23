@@ -39,7 +39,7 @@ namespace Keepr.Services
       {
         throw new Exception("that keep does not exist.");
       }
-      if (data.CreatorId != userId)
+      if (original.CreatorId != userId)
       {
         throw new Exception("Only the creator can edit this keep.");
       }

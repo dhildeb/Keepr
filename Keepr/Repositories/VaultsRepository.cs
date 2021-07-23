@@ -32,7 +32,7 @@ namespace Keepr.Repositories
       var sql = @"SELECT * 
       FROM vaults v 
       JOIN accounts a ON a.id = v.creatorId
-      WHERE id = @id";
+      WHERE v.id = @id";
       return _db.Query<Vault, Account, Vault>(sql, (v, a) =>
       {
         v.Creator = a;

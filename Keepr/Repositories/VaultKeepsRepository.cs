@@ -6,11 +6,11 @@ using Keepr.Models;
 
 namespace Keepr.Repositories
 {
-  public class VaultKeepRepository
+  public class VaultKeepsRepository
   {
     private readonly IDbConnection _db;
 
-    public VaultKeepRepository(IDbConnection db)
+    public VaultKeepsRepository(IDbConnection db)
     {
       _db = db;
     }
@@ -18,21 +18,21 @@ namespace Keepr.Repositories
     public VaultKeep Create(VaultKeep data)
     {
       var sql = @"
-      INSERT INTO Vault_Keep (vaultId, keepId) 
-      VALUES (@VaultKeep, @VaultKeep); 
+      INSERT INTO vault_keeps (vaultId, keepId) 
+      VALUES (@VaultId, @KeepId); 
       SELECT LAST_INSERT_ID();
       ";
       var id = _db.ExecuteScalar<int>(sql, data);
       data.Id = id;
       return data;
     }
-    public int Delete(int id)
+    public int Delete(VaultKeep data)
     {
       var sql = @"
-      DELETE FROM Vault_Keep
-      WHERE id = @id
+      DELETE FROM Vault_Keeps
+      WHERE vaultId = @VaultId AND keepId = @KeepId 
       ";
-      return _db.Execute(sql, new { id });
+      return _db.Execute(sql, data);
     }
     public List<VaultKeep> GetKeepsByVaultId(int vaultId)
     {

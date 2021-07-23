@@ -29,9 +29,9 @@ namespace Keepr.Services
     }
     public Vault Create(Vault data, string userId)
     {
+      data.CreatorId = userId;
       var id = _vrepo.Create(data);
       data.Id = id;
-      data.CreatorId = userId;
       return data;
     }
     public int Update(Vault data, int id, string userId)
@@ -43,6 +43,7 @@ namespace Keepr.Services
       }
       data.Name = data.Name ?? original.Name;
       data.Description = data.Description ?? original.Description;
+      data.Id = original.Id;
       var update = _vrepo.Update(data);
       if (update < 1)
       {
