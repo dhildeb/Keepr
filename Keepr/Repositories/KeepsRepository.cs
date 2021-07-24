@@ -28,6 +28,17 @@ namespace Keepr.Repositories
         return k;
       }).ToList();
     }
+
+    public void ViewCount(int id, int views)
+    {
+      var sql = @"
+      UPDATE keeps
+      SET
+      views = @views
+      WHERE id = @id;";
+      _db.Execute(sql, new { id, views });
+    }
+
     public Keep GetById(int id)
     {
       var sql = @"SELECT * 
@@ -40,6 +51,17 @@ namespace Keepr.Repositories
         return k;
       }, new { id }).FirstOrDefault();
     }
+
+    internal void KeepCount(int id, int keeps)
+    {
+      var sql = @"
+      UPDATE keeps
+      SET
+      keeps = @keeps
+      WHERE id = @id;";
+      _db.Execute(sql, new { id, keeps });
+    }
+
     public Keep Create(Keep data)
     {
       var sql = @"

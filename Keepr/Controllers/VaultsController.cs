@@ -37,11 +37,12 @@ namespace Keepr.Controllers
     }
 
     [HttpGet("{id}")]
-    public ActionResult<Vault> GetById(int id)
+    public async Task<ActionResult<Vault>> GetById(int id)
     {
       try
       {
-        Vault Vaults = _vs.GetById(id);
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        Vault Vaults = _vs.GetById(id, userInfo?.Id);
         return Ok(Vaults);
       }
       catch (System.Exception e)
@@ -97,11 +98,12 @@ namespace Keepr.Controllers
     }
 
     [HttpGet("{id}/keeps")]
-    public ActionResult<List<Vault>> GetKeepsByVaultId(int id)
+    public async Task<ActionResult<List<Vault>>> GetKeepsByVaultId(int id)
     {
       try
       {
-        List<VaultKeep> data = _vks.GetKeepsByVaultId(id);
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        List<VaultKeep> data = _vks.GetKeepsByVaultId(id, userInfo?.Id);
         return Ok(data);
       }
       catch (System.Exception e)

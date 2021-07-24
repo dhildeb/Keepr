@@ -30,7 +30,7 @@ namespace Keepr.Repositories
     public int Delete(int id)
     {
       var sql = @"
-      DELETE FROM vault_Keeps
+      DELETE FROM vault_keeps
       WHERE id = @id;
       ";
       return _db.Execute(sql, new { id });
@@ -39,7 +39,7 @@ namespace Keepr.Repositories
     public VaultKeep GetById(int id)
     {
       var sql = @"SELECT * FROM vault_keeps WHERE id = @id;";
-      return _db.QueryFirstOrDefault(sql, new { id });
+      return _db.QueryFirstOrDefault<VaultKeep>(sql, new { id });
     }
 
     public List<VaultKeep> GetKeepsByVaultId(int vaultId)
@@ -48,7 +48,7 @@ namespace Keepr.Repositories
     FROM vault_keeps vk
     JOIN keeps k ON k.id = vk.keepId
     JOIN accounts a ON a.id = k.creatorId
-    WHERE vaultId = @vaultId";
+    WHERE vk.vaultId = @vaultId";
       return _db.Query<VaultKeep, Keep, Account, VaultKeep>(sql, (vk, k, a) =>
       {
         vk.Keeps = k;
@@ -58,14 +58,15 @@ namespace Keepr.Repositories
     }
     public List<VaultKeep> GetvaultsByKeepId(int keepId)
     {
-      //join profile TODO
       var sql = @"SELECT * 
     FROM vault_keep vk
-    Join vaults v ON v.id = vk.vaultId
-    WHERE keepId = @keepId";
-      return _db.Query<VaultKeep, Vault, VaultKeep>(sql, (vk, v) =>
+    JOIN vaults v ON v.id = vk.vaultId
+    JOIN accounts a ON a.id = v.creatorId
+    WHERE vk.keepId = @keepId";
+      return _db.Query<VaultKeep, Vault, Account, VaultKeep>(sql, (vk, v, a) =>
       {
         vk.Vaults = v;
+        v.Creator = a;
         return vk;
       }, new { keepId }).ToList();
     }

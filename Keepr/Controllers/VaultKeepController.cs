@@ -43,7 +43,7 @@ namespace Keepr.Controllers
       try
       {
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-        var vaultKeep = _vks.Delete(id, userInfo.Id);
+        var vaultKeep = _vks.Delete(id, userInfo?.Id);
         return Ok(vaultKeep);
       }
       catch (System.Exception e)

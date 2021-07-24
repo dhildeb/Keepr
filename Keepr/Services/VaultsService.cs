@@ -18,12 +18,16 @@ namespace Keepr.Services
     {
       return _vrepo.GetAll();
     }
-    public Vault GetById(int id)
+    public Vault GetById(int id, string userId)
     {
       var vault = _vrepo.GetById(id);
       if (vault == null)
       {
         throw new Exception("Vault does not exist.");
+      }
+      if (vault.isPrivate && vault?.CreatorId != userId)
+      {
+        throw new Exception("Vault is private.");
       }
       return vault;
     }
@@ -36,7 +40,7 @@ namespace Keepr.Services
     }
     public int Update(Vault data, int id, string userId)
     {
-      var original = GetById(id);
+      var original = GetById(id, userId);
       if (original.CreatorId != userId)
       {
         throw new Exception("Only the creator can edit this vault.");
@@ -58,7 +62,7 @@ namespace Keepr.Services
 
     public string Delete(int id, string userId)
     {
-      var vault = GetById(id);
+      var vault = GetById(id, userId);
       if (vault.CreatorId != userId)
       {
         throw new Exception("Only the creator can delete this.");
