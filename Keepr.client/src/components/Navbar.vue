@@ -51,7 +51,7 @@
             :class="{ show: state.dropOpen }"
             @click="state.dropOpen = false"
           >
-            <router-link :to="{ name: 'Account' }">
+            <router-link :to="{ name: 'Profile' }">
               <div class="list-group-item list-group-item-action hoverable">
                 Account
               </div>

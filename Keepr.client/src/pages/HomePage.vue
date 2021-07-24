@@ -2,6 +2,7 @@
   <div class="masonry-with-columns p-5">
     <Keep v-for="keep in state.keeps" :key="keep.id" :keep="keep" />
   </div>
+  <KeepModal />
 </template>
 
 <script>
@@ -35,7 +36,6 @@ body {
   column-gap: 1rem;
   div {
     width: 150px;
-    background-color: rgba(0, 0, 0, 0.75);
     margin: 0 1rem 1rem 0;
     display: inline-block;
     width: 100%;
