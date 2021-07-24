@@ -3,6 +3,7 @@ using System.Data;
 using System.Linq;
 using Dapper;
 using Keepr.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Keepr.Repositories
 {
@@ -67,6 +68,16 @@ namespace Keepr.Repositories
       ";
       return _db.Execute(sql, data);
     }
+
+    internal ActionResult<List<Keep>> GetKeepsByProfileId(string id)
+    {
+      var sql = @"
+      SELECT * FROM keeps
+      WHERE creatorId = @id;
+      ";
+      return _db.Query<Keep>(sql, new { id }).ToList();
+    }
+
     public int Delete(int id)
     {
       string sql = @"

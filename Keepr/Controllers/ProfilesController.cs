@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using CodeWorks.Auth0Provider;
 using Keepr.Models;
+using Keepr.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Keeepr.Controllers
+namespace Keepr.Controllers
 {
   [ApiController]
   [Route("api/[controller]")]
@@ -33,7 +34,7 @@ namespace Keeepr.Controllers
       }
     }
     [HttpGet("{id}")]
-    public ActionResult<Account> GetById(int id)
+    public ActionResult<Account> GetById(string id)
     {
       try
       {
@@ -46,15 +47,14 @@ namespace Keeepr.Controllers
       }
     }
 
-    [HttpPost]
-    public ActionResult<Account> Create([FromBody] Account data)
+    [HttpGet("{id}/keeps")]
+    public ActionResult<List<Keep>> GetKeepsByProfileId(string id)
     {
       try
       {
-        Account Account = _ps.Create(data);
-        return Ok(Account);
+        return _ps.GetKeepsByProfileId(id);
       }
-      catch (Exception e)
+      catch (System.Exception e)
       {
         return BadRequest(e.Message);
       }
@@ -62,7 +62,7 @@ namespace Keeepr.Controllers
 
     [Authorize]
     [HttpPut("{id}")]
-    public async Task<ActionResult<Account>> Update([FromBody] Account data, int id)
+    public async Task<ActionResult<Account>> Update([FromBody] Account data, string id)
     {
       try
       {
@@ -78,7 +78,7 @@ namespace Keeepr.Controllers
 
     [Authorize]
     [HttpDelete("{id}")]
-    public async Task<ActionResult<string>> Delete(int id)
+    public async Task<ActionResult<string>> Delete(string id)
     {
       try
       {
