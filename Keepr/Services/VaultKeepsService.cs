@@ -27,7 +27,7 @@ namespace Keepr.Services
       return _vkrepo.Create(data);
     }
 
-    public string Delete(int id, string userId)
+    public VaultKeep Delete(int id, string userId)
     {
       var vaultKeep = _vkrepo.GetById(id);
       if (vaultKeep?.CreatorId != userId)
@@ -38,7 +38,7 @@ namespace Keepr.Services
       {
         throw new Exception("didnt work");
       }
-      return "Successfully Deleted!";
+      return vaultKeep;
     }
 
     public List<VaultKeep> GetKeepsByVaultId(int id)
