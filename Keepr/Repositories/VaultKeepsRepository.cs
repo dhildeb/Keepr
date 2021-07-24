@@ -44,14 +44,15 @@ namespace Keepr.Repositories
 
     public List<VaultKeep> GetKeepsByVaultId(int vaultId)
     {
-      //join profile TODO
       var sql = @"SELECT * 
     FROM vault_keeps vk
-    Join keeps k ON k.id = vk.keepId
+    JOIN keeps k ON k.id = vk.keepId
+    JOIN accounts a ON a.id = k.creatorId
     WHERE vaultId = @vaultId";
-      return _db.Query<VaultKeep, Keep, VaultKeep>(sql, (vk, k) =>
+      return _db.Query<VaultKeep, Keep, Account, VaultKeep>(sql, (vk, k, a) =>
       {
         vk.Keeps = k;
+        k.Creator = a;
         return vk;
       }, new { vaultId }).ToList();
     }

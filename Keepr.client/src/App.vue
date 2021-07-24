@@ -6,8 +6,10 @@
     <router-view />
   </main>
   <footer>
-    <div class="bg-dark text-light text-center p-4">
-      Made with 💖 by CodeWorks
+    <div class="text-center bg-light mt-5 p-3">
+      <em>Created By Daniel Hildebrandt</em>
+      <a href="https://github.com/dhildeb" class="mdi mdi-github text-dark zoom mx-3 "></a>
+      <a href="https://www.linkedin.com/in/daniel-hildebrandt/" class="mdi mdi-linkedin text-primary zoom "></a>
     </div>
   </footer>
 </template>
@@ -26,5 +28,7 @@ export default {
 </script>
 <style lang="scss">
 @import "./assets/scss/main.scss";
-
+.zoom{
+  transform: scale(1.5);
+}
 </style>
