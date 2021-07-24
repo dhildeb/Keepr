@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using CodeWorks.Auth0Provider;
 using Keepr.Models;
@@ -25,7 +26,24 @@ namespace Keepr.Controllers
       try
       {
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-        return Ok(_vks.Create(data, userInfo.Id));
+
+        var vaultkeep = _vks.Create(data, userInfo.Id);
+        return Ok(vaultkeep);
+      }
+      catch (System.Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+
+    [Authorize]
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<VaultKeep>> Delete(int id)
+    {
+      try
+      {
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        return Ok(_vks.Delete(id, userInfo.Id));
       }
       catch (System.Exception e)
       {

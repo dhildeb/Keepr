@@ -35,9 +35,11 @@ CREATE TABLE vaults(
 --  DROP TABLE vaults;
 CREATE TABLE vault_keeps(
   id int NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT 'Primary Key',
+  creatorId VARCHAR(255) NOT NULL,
   vaultId int NOT NULL,
   keepId int NOT NULL,
   FOREIGN KEY (vaultId) REFERENCES vaults(id) ON DELETE CASCADE,
-  FOREIGN KEY (keepId) REFERENCES keeps(id) ON DELETE CASCADE
+  FOREIGN KEY (keepId) REFERENCES keeps(id) ON DELETE CASCADE,
+  FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
 ) DEFAULT charset utf8 COMMENT '';
 -- DROP TABLE vault_keeps;

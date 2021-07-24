@@ -14,10 +14,12 @@ namespace Keepr.Controllers
   public class VaultsController : ControllerBase
   {
     private readonly VaultsService _vs;
+    private readonly VaultKeepsService _vks;
 
-    public VaultsController(VaultsService vs)
+    public VaultsController(VaultsService vs, VaultKeepsService vks)
     {
       _vs = vs;
+      _vks = vks;
     }
 
     [HttpGet]
@@ -94,20 +96,19 @@ namespace Keepr.Controllers
       }
     }
 
-    // if doing many to many change TODO m2mO
-    // [HttpGet("{id}/m2mO")]
-    // public ActionResult<List<Vault>> Getm2mOByVaultId(int id)
-    // {
-    //   try
-    //   {
-    //     List<m2mOVault> data = _vs.Getm2mOByVaultId(id);
-    //     return Ok(data);
-    //   }
-    //   catch (System.Exception e)
-    //   {
-    //     return BadRequest(e.Message);
-    //   }
-    // }
+    [HttpGet("{id}/keeps")]
+    public ActionResult<List<Vault>> GetKeepsByVaultId(int id)
+    {
+      try
+      {
+        List<VaultKeep> data = _vks.GetKeepsByVaultId(id);
+        return Ok(data);
+      }
+      catch (System.Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
 
 
   }

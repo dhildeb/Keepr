@@ -30,7 +30,8 @@ namespace Keepr.Services
     public Keep Create(Keep data, string userId)
     {
       data.CreatorId = userId;
-      return _krepo.Create(data);
+      var newKeep = _krepo.Create(data);
+      return _krepo.GetById(newKeep.Id);
     }
     public int Update(Keep data, int id, string userId)
     {

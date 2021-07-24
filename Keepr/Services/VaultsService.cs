@@ -31,8 +31,8 @@ namespace Keepr.Services
     {
       data.CreatorId = userId;
       var id = _vrepo.Create(data);
-      data.Id = id;
-      return data;
+      var newVault = _vrepo.GetById(id);
+      return newVault;
     }
     public int Update(Vault data, int id, string userId)
     {

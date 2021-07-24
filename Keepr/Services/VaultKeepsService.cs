@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Keepr.Models;
 using Keepr.Repositories;
 
@@ -18,21 +19,27 @@ namespace Keepr.Services
     public VaultKeep Create(VaultKeep data, string userId)
     {
       var vault = _vs.GetById(data.VaultId);
-      if (vault.CreatorId != userId)
+      if (vault?.CreatorId != userId)
       {
         throw new Exception("Only the creator can do that.");
       }
+      data.CreatorId = userId;
       return _vkrepo.Create(data);
     }
 
-    public int Delete(VaultKeep data, string userId)
+    public int Delete(int id, string userId)
     {
-      var vault = _vs.GetById(data.VaultId);
-      if (vault.CreatorId != userId)
+      var vaultKeep = _vkrepo.GetById(id);
+      if (vaultKeep?.CreatorId != userId)
       {
         throw new Exception("Only the creator can do that.");
       }
-      return _vkrepo.Delete(data);
+      return _vkrepo.Delete(id);
+    }
+
+    public List<VaultKeep> GetKeepsByVaultId(int id)
+    {
+      return _vkrepo.GetKeepsByVaultId(id);
     }
   }
 }
