@@ -3,6 +3,7 @@ using System.Data;
 using System.Linq;
 using Dapper;
 using Keepr.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Keepr.Repositories
 {
@@ -66,6 +67,15 @@ namespace Keepr.Repositories
       WHERE id = @id
       ";
       return _db.Execute(sql, new { id });
+    }
+
+    public ActionResult<List<Vault>> GetVaultsByProfileId(string id)
+    {
+      var sql = @"
+      SELECT * FROM vaults
+      WHERE creatorId = @id;
+      ";
+      return _db.Query<Vault>(sql, new { id }).ToList();
     }
   }
 

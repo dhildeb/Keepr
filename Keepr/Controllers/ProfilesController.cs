@@ -59,6 +59,18 @@ namespace Keepr.Controllers
         return BadRequest(e.Message);
       }
     }
+    [HttpGet("{id}/vaults")]
+    public ActionResult<List<Vault>> GetVaultsByProfileId(string id)
+    {
+      try
+      {
+        return _ps.GetVaultsByProfileId(id);
+      }
+      catch (System.Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
 
     [Authorize]
     [HttpPut("{id}")]

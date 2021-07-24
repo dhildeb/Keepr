@@ -10,11 +10,13 @@ namespace Keepr.Services
   {
     private readonly ProfilesRepository _prepo;
     private readonly KeepsRepository _krepo;
+    private readonly VaultsRepository _vrepo;
 
-    public ProfilesService(ProfilesRepository prepo, KeepsRepository krepo)
+    public ProfilesService(ProfilesRepository prepo, KeepsRepository krepo, VaultsRepository vrepo)
     {
       _prepo = prepo;
       _krepo = krepo;
+      _vrepo = vrepo;
     }
 
     public List<Account> GetAll()
@@ -58,6 +60,11 @@ namespace Keepr.Services
     public ActionResult<List<Keep>> GetKeepsByProfileId(string id)
     {
       return _krepo.GetKeepsByProfileId(id);
+    }
+
+    internal ActionResult<List<Vault>> GetVaultsByProfileId(string id)
+    {
+      return _vrepo.GetVaultsByProfileId(id);
     }
   }
 }
