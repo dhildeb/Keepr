@@ -1,13 +1,15 @@
 <template>
   <div class="keep-img rounded shadow d-flex justify-content-between align-items-end" :style="{'background-image': 'url(' + keep.img + ')'}" data-toggle="modal" data-target="#keepModal" @click="setActive">
     <span class="name text-light">{{ keep.name }}</span>
-    <img class="rounded-circle profile-icon" :src="keep.creator.picture" alt="">
+    <router-link :to="{name: 'Profile', params: {id: keep.creator.id}}" data-target="#keepModal">
+      <img class="rounded-circle profile-icon" :src="keep.creator.picture" alt="">
+    </router-link>
   </div>
 </template>
 
 <script>
 import { reactive } from '@vue/reactivity'
-import { AppState } from '../AppState'
+import { keepsService } from '../services/KeepsService'
 export default {
   props: {
     keep: { type: Object, required: true }
@@ -19,7 +21,7 @@ export default {
     return {
       state,
       setActive() {
-        AppState.ActiveKeep = props.keep
+        keepsService.getById(props.keep.id)
       }
     }
   }

@@ -25,7 +25,8 @@ namespace Keepr.Services
       {
         throw new Exception("that keep does not exist");
       }
-      _krepo.ViewCount(id, keep.Views++);
+      keep.Views++;
+      _krepo.ViewCount(id, keep.Views);
       return keep;
     }
     public Keep Create(Keep data, string userId)

@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header text-center">
-          <img class="img-fluid profile-icon rounded-circle" :title="state.keep.creator.name" :src="state.keep.creator.picture" :alt="state.keep.creator.name">
+          <img class="img-fluid profile-icon rounded-circle" :title="state.keep.creator?.name" :src="state.keep.creator?.picture" :alt="state.keep.creator?.name" @click="goToProfile">
           <h4>
             {{ state.keep.name }}
           </h4>
@@ -40,13 +40,20 @@
 import { reactive } from '@vue/reactivity'
 import { computed } from '@vue/runtime-core'
 import { AppState } from '../AppState'
+import $ from 'jquery'
+import { useRouter } from 'vue-router'
 export default {
   setup() {
+    const router = useRouter()
     const state = reactive({
       keep: computed(() => AppState.ActiveKeep)
     })
     return {
-      state
+      state,
+      goToProfile() {
+        $('#keepModal').modal('toggle')
+        router.push({ name: 'Profile', params: { id: state.keep.creator?.id } })
+      }
     }
   }
 }
