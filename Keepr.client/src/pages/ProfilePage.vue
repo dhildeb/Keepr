@@ -1,9 +1,36 @@
 <template>
-  <div class="about text-center">
-    <img class="img-fluid" :src="state.profile.picture" :alt="state.profile.name">
-    <h4>{{ state.profile.name }}</h4>
-    <h2>{{ state.profile.email }}</h2>
+  <div class="container">
+    <div class="row about text-center">
+      <img class="col img-fluid" :src="state.profile.picture" :alt="state.profile.name">
+      <div class="col">
+        <h2>
+          {{ state.profile.name?.split('@')[0] }}
+        </h2>
+        <h4>
+          {{ state.profile.email }}
+        </h4>
+      </div>
+      <div class="col d-flex flex-column">
+        <h5>Keeps: {{ state.keeps?.length }}</h5>
+        <h5>Vaults: {{ state.vaults?.length }}</h5>
+      </div>
+    </div>
+    <h1>
+      Vaults
+      <i class="mdi mdi-plus text-success click add"></i>
+    </h1>
+    <div class="row">
+      <Vaults v-for="vault in state.vaults" :key="vault.id" :vault="vault" />
+    </div>
+    <h1>
+      Keeps
+      <i class="mdi mdi-plus text-success click add"></i>
+    </h1>
+    <div class="masonry-with-columns p-5">
+      <Keep v-for="keep in state.keeps" :key="keep.id" :keep="keep" />
+    </div>
   </div>
+  <KeepModal />
 </template>
 
 <script>
@@ -11,16 +38,24 @@ import { computed, onMounted, reactive } from 'vue'
 import { AppState } from '../AppState'
 import { useRoute } from 'vue-router'
 import { profilesService } from '../services/ProfilesService'
+import { keepsService } from '../services/KeepsService'
+import { vaultsService } from '../services/VaultsService'
+import Pop from '../utils/Notifier'
 export default {
   name: 'Profile',
   setup() {
     const route = useRoute()
-    onMounted(() => {
-      profilesService.getById(route.params.id)
+    onMounted(async() => {
+      await keepsService.getAll()
+      await vaultsService.getAll()
+      await profilesService.getById(route.params.id)
+      AppState.keeps = AppState.keeps.filter(k => k.creatorId === route.params.id)
+      AppState.vaults = AppState.vaults.filter(k => k.creatorId === route.params.id)
     })
     const state = reactive({
-      profile: computed(() => AppState.profile)
-
+      profile: computed(() => AppState.profile),
+      keeps: computed(() => AppState.keeps),
+      vaults: computed(() => AppState.vaults)
     })
     return {
       state
@@ -32,5 +67,14 @@ export default {
 <style scoped>
 img {
   max-width: 100px;
+}
+.about{
+  contain: content;
+}
+.add{
+  transition: all .1s linear;
+}
+.add:hover{
+  text-shadow: 1px 3px 4px black;
 }
 </style>

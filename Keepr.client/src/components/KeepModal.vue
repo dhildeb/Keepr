@@ -4,10 +4,10 @@
       <div class="modal-content">
         <div class="modal-header text-center">
           <img class="img-fluid profile-icon rounded-circle" :title="state.keep.creator?.name" :src="state.keep.creator?.picture" :alt="state.keep.creator?.name" @click="goToProfile">
-          <h4>
+          <h4 class="m-auto">
             {{ state.keep.name }}
           </h4>
-          <i class="mdi mdi-delete text-danger pr-2 click" title="Delete"></i>
+          <i class="mdi mdi-delete text-danger pr-2 click" title="Delete" @click="deleteKeep" v-if="state.keep.creatorId === state.account.id"></i>
         </div>
         <div class="modal-body d-flex justify-content-between">
           <img class="img-fluid img" :src="state.keep.img" :alt="state.keep.name">
@@ -42,17 +42,25 @@ import { computed } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import $ from 'jquery'
 import { useRouter } from 'vue-router'
+import { keepsService } from '../services/KeepsService'
+import Pop from '../utils/Notifier'
 export default {
   setup() {
     const router = useRouter()
     const state = reactive({
-      keep: computed(() => AppState.ActiveKeep)
+      keep: computed(() => AppState.ActiveKeep),
+      account: computed(() => AppState.account)
     })
     return {
       state,
       goToProfile() {
         $('#keepModal').modal('toggle')
         router.push({ name: 'Profile', params: { id: state.keep.creator?.id } })
+      },
+      async deleteKeep() {
+        if (await Pop.confirm('Are you sure you want to delete this?')) {
+          keepsService.delete(state.keep.id)
+        }
       }
     }
   }

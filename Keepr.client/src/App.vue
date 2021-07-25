@@ -15,11 +15,15 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, watchEffect } from 'vue'
 import { AppState } from './AppState'
+import { accountService } from './services/AccountService'
 export default {
   name: 'App',
   setup() {
+    watchEffect(() => {
+      accountService.getAccount()
+    })
     return {
       appState: computed(() => AppState)
     }

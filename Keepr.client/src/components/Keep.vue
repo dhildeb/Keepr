@@ -1,5 +1,5 @@
 <template>
-  <div class="keep-img rounded shadow d-flex justify-content-between align-items-end" :style="{'background-image': 'url(' + keep.img + ')'}" data-toggle="modal" data-target="#keepModal" @click="setActive">
+  <div class="keep-img rounded shadow d-flex justify-content-between align-items-end p-2" :style="{'background-image': 'url(' + keep.img + ')'}" data-toggle="modal" data-target="#keepModal" @click="setActive">
     <span class="name text-light">{{ keep.name }}</span>
     <router-link :to="{name: 'Profile', params: {id: keep.creator.id}}" data-target="#keepModal">
       <img class="rounded-circle profile-icon" :src="keep.creator.picture" alt="">
@@ -45,7 +45,6 @@ export default {
   max-width: 5vw;
 }
 .name{
-  background-color: rgba(0, 0, 0, 0.5);
-  box-shadow: 10px -10px 10px 10px rgba(0, 0, 0, 0.5);
+    text-shadow: 0px 1px 4px black;
 }
 </style>

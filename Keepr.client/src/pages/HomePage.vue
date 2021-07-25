@@ -26,27 +26,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-body {
-  margin: 0;
-  padding: 1rem;
-}
 
-.masonry-with-columns {
-  columns: 6 200px;
-  column-gap: 1rem;
-  div {
-    width: 150px;
-    margin: 0 1rem 1rem 0;
-    display: inline-block;
-    width: 100%;
-    text-align: center;
-  }
-  @for $i from 1 through 5000 {
-    div:nth-child(#{$i}) {
-      $h: (random(400) + 100) + px;
-      height: $h;
-      // line-height: $h;
-    }
-  }
-}
 </style>
