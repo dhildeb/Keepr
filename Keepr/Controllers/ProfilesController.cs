@@ -60,11 +60,12 @@ namespace Keepr.Controllers
       }
     }
     [HttpGet("{id}/vaults")]
-    public ActionResult<List<Vault>> GetVaultsByProfileId(string id)
+    public async Task<ActionResult<List<Vault>>> GetVaultsByProfileId(string id)
     {
       try
       {
-        return _ps.GetVaultsByProfileId(id);
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        return _ps.GetVaultsByProfileId(id, userInfo?.Id);
       }
       catch (System.Exception e)
       {
@@ -79,7 +80,7 @@ namespace Keepr.Controllers
       try
       {
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-        data.Id = userInfo.Id;
+        data.Id = userInfo?.Id;
         return Ok(_ps.Update(id, data));
       }
       catch (System.Exception e)
@@ -95,7 +96,7 @@ namespace Keepr.Controllers
       try
       {
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-        return Ok(_ps.Delete(id, userInfo.Id));
+        return Ok(_ps.Delete(id, userInfo?.Id));
       }
       catch (System.Exception e)
       {

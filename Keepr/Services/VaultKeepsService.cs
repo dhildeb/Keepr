@@ -47,7 +47,7 @@ namespace Keepr.Services
       return vaultKeep;
     }
 
-    public List<VaultKeep> GetKeepsByVaultId(int id, string userId)
+    public List<VaultKeepView> GetKeepsByVaultId(int id, string userId)
     {
       var vault = _vs.GetById(id, userId);
 

@@ -6,7 +6,7 @@ namespace Keepr.Models
     public string CreatorId { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
-    public bool isPrivate { get; set; }
+    public bool isPrivate { get; set; } = false;
 
     public Account Creator { get; set; }
   }

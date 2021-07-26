@@ -42,34 +42,38 @@ namespace Keepr.Repositories
       return _db.QueryFirstOrDefault<VaultKeep>(sql, new { id });
     }
 
-    public List<VaultKeep> GetKeepsByVaultId(int vaultId)
+    public List<VaultKeepView> GetKeepsByVaultId(int vaultId)
     {
-      var sql = @"SELECT * 
+      var sql = @"SELECT 
+      k.*,
+      vk.id AS vaultKeepId,
+      vk.vaultId,
+      vk.keepId,
+      a.* 
     FROM vault_keeps vk
     JOIN keeps k ON k.id = vk.keepId
     JOIN accounts a ON a.id = k.creatorId
     WHERE vk.vaultId = @vaultId";
-      return _db.Query<VaultKeep, Keep, Account, VaultKeep>(sql, (vk, k, a) =>
+      return _db.Query<VaultKeepView, Account, VaultKeepView>(sql, (vkv, a) =>
       {
-        vk.Keeps = k;
-        k.Creator = a;
-        return vk;
+        vkv.Creator = a;
+        return vkv;
       }, new { vaultId }).ToList();
     }
-    public List<VaultKeep> GetvaultsByKeepId(int keepId)
-    {
-      var sql = @"SELECT * 
-    FROM vault_keep vk
-    JOIN vaults v ON v.id = vk.vaultId
-    JOIN accounts a ON a.id = v.creatorId
-    WHERE vk.keepId = @keepId";
-      return _db.Query<VaultKeep, Vault, Account, VaultKeep>(sql, (vk, v, a) =>
-      {
-        vk.Vaults = v;
-        v.Creator = a;
-        return vk;
-      }, new { keepId }).ToList();
-    }
+    // public List<VaultKeep> GetvaultsByKeepId(int keepId)
+    // {
+    //   var sql = @"SELECT * 
+    // FROM vault_keep vk
+    // JOIN vaults v ON v.id = vk.vaultId
+    // JOIN accounts a ON a.id = v.creatorId
+    // WHERE vk.keepId = @keepId";
+    //   return _db.Query<VaultKeep, Vault, Account, VaultKeep>(sql, (vk, v, a) =>
+    //   {
+    //     vk.Vaults = v;
+    //     v.Creator = a;
+    //     return vk;
+    //   }, new { keepId }).ToList();
+    // }
 
   }
 

@@ -62,8 +62,12 @@ namespace Keepr.Services
       return _krepo.GetKeepsByProfileId(id);
     }
 
-    internal ActionResult<List<Vault>> GetVaultsByProfileId(string id)
+    public ActionResult<List<Vault>> GetVaultsByProfileId(string id, string userId)
     {
+      if (userId == id)
+      {
+        return _vrepo.GetVaultsByUserId(id);
+      }
       return _vrepo.GetVaultsByProfileId(id);
     }
   }
