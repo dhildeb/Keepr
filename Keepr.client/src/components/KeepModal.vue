@@ -9,15 +9,22 @@
           </h4>
           <i class="mdi mdi-delete text-danger pr-2 click" title="Delete" @click="deleteKeep" v-if="state.keep.creatorId === state.account.id"></i>
         </div>
-        <div class="modal-body d-flex justify-content-between">
+        <div class="modal-body d-flex justify-content-between scrollable">
           <img class="img-fluid img" :src="state.keep.img" :alt="state.keep.name">
           <div class="w-50 d-flex flex-column justify-content-between">
             <p class="p-3">
               {{ state.keep.description }}
             </p>
-            <button class="btn btn-outline-primary m-auto">
-              Add to Vault
-            </button>
+            <div class="dropdown">
+              <button class="btn btn-outline-primary m-auto dropdown-toggle" data-toggle="dropdown">
+                Add to Vault
+              </button>
+              <div class="dropdown-menu">
+                <p class="dropdown-item" v-for="v in state.vaults" :key="v.id" @click="addToVault(v.id)">
+                  {{ v.name }}
+                </p>
+              </div>
+            </div>
             <div class="text-center">
               <i class="mdi mdi-eye" title="total views">
                 {{ state.keep.views }}
@@ -38,17 +45,24 @@
 
 <script>
 import { reactive } from '@vue/reactivity'
-import { computed } from '@vue/runtime-core'
+import { computed, onMounted } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import $ from 'jquery'
 import { useRouter } from 'vue-router'
 import { keepsService } from '../services/KeepsService'
 import Pop from '../utils/Notifier'
+import { vaultsService } from '../services/VaultsService'
+import { vaultKeepsService } from '../services/VaultKeepsService'
+
 export default {
   setup() {
+    onMounted(() => {
+      vaultsService.getAll()
+    })
     const router = useRouter()
     const state = reactive({
       keep: computed(() => AppState.ActiveKeep),
+      vaults: computed(() => AppState.vaults.filter(v => v.creatorId === AppState.account.id)),
       account: computed(() => AppState.account)
     })
     return {
@@ -61,6 +75,9 @@ export default {
         if (await Pop.confirm('Are you sure you want to delete this?')) {
           keepsService.delete(state.keep.id)
         }
+      },
+      async addToVault(vaultId) {
+        await vaultKeepsService.addToVault(vaultId, state.keep.id)
       }
     }
   }
@@ -78,5 +95,8 @@ export default {
 .profile-icon{
   max-height: 5vh;
   max-width: 5vw;
+}
+.scrollable{
+  overflow-y: auto;
 }
 </style>

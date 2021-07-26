@@ -12,5 +12,11 @@ class VaultKeepsService {
       Pop.toast(error)
     }
   }
+
+  async addToVault(vaultId, keepId) {
+    const data = { vaultId, keepId }
+    const res = await api.post('api/vaultkeeps', data)
+    console.log(res.data)
+  }
 }
 export const vaultKeepsService = new VaultKeepsService()
