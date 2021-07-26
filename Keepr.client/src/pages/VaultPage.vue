@@ -1,9 +1,38 @@
 <template>
   <div class="container">
     <div class="row flex-column">
-      <h1>
-        {{ state.vault.name }}
-      </h1>
+      <div class="d-flex">
+        <h1 v-if="state.editN === false">
+          {{ state.vault.name }}
+        </h1>
+        <h1 v-else>
+          <div class="input-group" @submit.prevent="edit">
+            <input type="text" :placeholder="state.vault.name" v-model="state.vaultData.name">
+            <button class="btn btn-primary input-group-append" type="submit" @click="edit">
+              submit
+            </button>
+          </div>
+        </h1>
+        <p v-if="state.account.id === state.vault.creatorId">
+          <i class="mdi mdi-pencil click ml-3" title="Edit Vault" @click="state.editN = !state.editN"></i>
+        </p>
+      </div>
+      <div class="d-flex">
+        <h5 v-if="state.editD === false">
+          {{ state.vault.description }}
+        </h5>
+        <h5 v-else>
+          <div class="input-group" @submit.prevent="editD">
+            <input type="text" :placeholder="state.vault.description" v-model="state.vaultData.description">
+            <button class="btn btn-primary input-group-append" type="submit" @click="edit">
+              submit
+            </button>
+          </div>
+        </h5>
+        <p v-if="state.account.id === state.vault.creatorId">
+          <i class="mdi mdi-pencil click ml-3" title="Edit Vault" @click="state.editD = !state.editD"></i>
+        </p>
+      </div>
       <p>
         Keeps:
         {{ state.keeps.length }}
@@ -33,10 +62,20 @@ export default {
     })
     const state = reactive({
       keeps: computed(() => AppState.keeps),
-      vault: computed(() => AppState.ActiveVault)
+      vault: computed(() => AppState.ActiveVault),
+      account: computed(() => AppState.account),
+      editD: false,
+      editN: false,
+      vaultData: {}
     })
     return {
-      state
+      state,
+      edit() {
+        state.editN = false
+        state.editD = false
+        vaultsService.update(state.vaultData, route.params.id)
+        state.vaultData = {}
+      }
     }
   }
 }

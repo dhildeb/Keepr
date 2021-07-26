@@ -7,7 +7,7 @@
           <h4 class="m-auto">
             {{ state.keep.name }}
           </h4>
-          <i class="mdi mdi-delete text-danger pr-2 click" title="Delete" @click="deleteKeep" v-if="state.keep.creatorId === state.account.id"></i>
+          <i class="mdi mdi-delete text-danger pr-2 click" title="Delete" @click="deleteKeep" v-if="state.keep.creatorId === state.account.id && route.params?.id > 0"></i>
         </div>
         <div class="modal-body d-flex justify-content-between scrollable">
           <img class="img-fluid img" :src="state.keep.img" :alt="state.keep.name">
@@ -15,8 +15,8 @@
             <p class="p-3">
               {{ state.keep.description }}
             </p>
-            <div class="dropdown">
-              <button class="btn btn-outline-primary m-auto dropdown-toggle" data-toggle="dropdown">
+            <div class="dropdown m-auto">
+              <button class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">
                 Add to Vault
               </button>
               <div class="dropdown-menu">
@@ -48,7 +48,7 @@ import { reactive } from '@vue/reactivity'
 import { computed, onMounted } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import $ from 'jquery'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { keepsService } from '../services/KeepsService'
 import Pop from '../utils/Notifier'
 import { vaultsService } from '../services/VaultsService'
@@ -60,6 +60,7 @@ export default {
       vaultsService.getAll()
     })
     const router = useRouter()
+    const route = useRoute()
     const state = reactive({
       keep: computed(() => AppState.ActiveKeep),
       vaults: computed(() => AppState.vaults.filter(v => v.creatorId === AppState.account.id)),
@@ -67,6 +68,7 @@ export default {
     })
     return {
       state,
+      route,
       goToProfile() {
         $('#keepModal').modal('toggle')
         router.push({ name: 'Profile', params: { id: state.keep.creator?.id } })
@@ -77,6 +79,7 @@ export default {
         }
       },
       async addToVault(vaultId) {
+        state.keep.keeps++
         await vaultKeepsService.addToVault(vaultId, state.keep.id)
       }
     }

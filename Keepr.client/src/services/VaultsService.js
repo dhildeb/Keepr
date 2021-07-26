@@ -23,6 +23,14 @@ class VaultsService {
       Pop.toast(error)
     }
   }
+
+  async update(data, id) {
+    const res = await api.put('api/vaults/' + id, data)
+    if (res.data > 0) {
+      AppState.ActiveVault.name = data.name || AppState.ActiveVault.name
+      AppState.ActiveVault.description = data.description || AppState.ActiveVault.description
+    }
+  }
 }
 
 export const vaultsService = new VaultsService()

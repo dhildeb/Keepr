@@ -15,8 +15,7 @@ class VaultKeepsService {
 
   async addToVault(vaultId, keepId) {
     const data = { vaultId, keepId }
-    const res = await api.post('api/vaultkeeps', data)
-    console.log(res.data)
+    await api.post('api/vaultkeeps', data)
   }
 }
 export const vaultKeepsService = new VaultKeepsService()
