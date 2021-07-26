@@ -1,27 +1,37 @@
 <template>
   <div class="keep-img rounded shadow d-flex justify-content-between align-items-end p-2" :style="{'background-image': 'url(' + keep.img + ')'}" data-toggle="modal" data-target="#keepModal" @click="setActive">
-    <span class="name text-light">{{ keep.name }}</span>
-    <router-link :to="{name: 'Profile', params: {id: keep.creator.id}}" data-target="#keepModal">
-      <img class="rounded-circle profile-icon" :src="keep.creator.picture" alt="">
-    </router-link>
+    <i class="mdi mdi-delete text-danger align-self-start z" title="Remove from Vault" @click.stop="removeKeep" v-if="state.vault.creatorId === state.account.id"></i>
+    <div class="d-flex justify-content-between align-items-end">
+      <span class="name text-light">{{ keep.name }}</span>
+      <router-link :to="{name: 'Profile', params: {id: keep.creator.id}}" data-target="#keepModal">
+        <img class="rounded-circle profile-icon" :src="keep.creator.picture" alt="">
+      </router-link>
+    </div>
   </div>
 </template>
 
 <script>
 import { reactive } from '@vue/reactivity'
 import { keepsService } from '../services/KeepsService'
+import { computed } from '@vue/runtime-core'
+import { AppState } from '../AppState'
+import { vaultKeepsService } from '../services/VaultKeepsService'
 export default {
   props: {
     keep: { type: Object, required: true }
   },
   setup(props) {
     const state = reactive({
-
+      vault: computed(() => AppState.ActiveVault),
+      account: computed(() => AppState.account)
     })
     return {
       state,
       setActive() {
-        keepsService.getById(props.keep.id)
+        keepsService.setActive(props.keep)
+      },
+      removeKeep() {
+        vaultKeepsService.delete(props.keep.vaultKeepId, props.keep.id)
       }
     }
   }
@@ -47,4 +57,5 @@ export default {
 .name{
     text-shadow: 0px 1px 4px black;
 }
+
 </style>

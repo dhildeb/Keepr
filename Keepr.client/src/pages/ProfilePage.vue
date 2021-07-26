@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="row about text-center">
+    <div class="row about text-center my-5">
       <img class="col img-fluid" :src="state.profile.picture" :alt="state.profile.name">
       <div class="col">
         <h2>
@@ -36,13 +36,12 @@
 </template>
 
 <script>
-import { computed, onMounted, reactive } from 'vue'
+import { computed, onMounted, reactive, watchEffect } from 'vue'
 import { AppState } from '../AppState'
 import { useRoute } from 'vue-router'
 import { profilesService } from '../services/ProfilesService'
 import { keepsService } from '../services/KeepsService'
 import { vaultsService } from '../services/VaultsService'
-import Pop from '../utils/Notifier'
 export default {
   name: 'Profile',
   setup() {
@@ -51,6 +50,8 @@ export default {
       await keepsService.getAll()
       await vaultsService.getAll()
       await profilesService.getById(route.params.id)
+    })
+    watchEffect(() => {
       AppState.keeps = AppState.keeps.filter(k => k.creatorId === route.params.id)
       AppState.vaults = AppState.vaults.filter(k => k.creatorId === route.params.id)
     })

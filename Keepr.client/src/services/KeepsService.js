@@ -10,6 +10,7 @@ class KeepsService {
 
   async getById(id) {
     const res = await api.get('api/keeps/' + id)
+    console.log('active keep', res.data)
     AppState.ActiveKeep = res.data
   }
 
@@ -32,6 +33,10 @@ class KeepsService {
     } catch (error) {
       Pop.toast(error)
     }
+  }
+
+  setActive(keep) {
+    AppState.ActiveKeep = keep
   }
 }
 

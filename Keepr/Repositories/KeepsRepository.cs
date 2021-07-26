@@ -86,7 +86,7 @@ namespace Keepr.Repositories
       shares = @Shares,
       keeps = @Keeps
 
-      WHERE id = @Id;
+      WHERE id = @Id LIMIT 1;
       ";
       return _db.Execute(sql, data);
     }

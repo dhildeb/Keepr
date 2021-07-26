@@ -17,5 +17,13 @@ class VaultKeepsService {
     const data = { vaultId, keepId }
     await api.post('api/vaultkeeps', data)
   }
+
+  async delete(id, keepId) {
+    console.log(id)
+    const res = await api.delete('api/vaultkeeps/' + id)
+    console.log(res)
+    const i = AppState.keeps.findIndex(k => k.id === keepId)
+    AppState.keeps.splice(i, 1)
+  }
 }
 export const vaultKeepsService = new VaultKeepsService()

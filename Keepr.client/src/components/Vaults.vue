@@ -1,6 +1,7 @@
 <template>
   <div class="col-3 vault mb-4" v-if="!vault.private">
     <div class="border border-dark shadow click rounded h-100 w-100 d-flex align-items-center justify-content-center text-center">
+      <i class="mdi mdi-delete text-danger position-absolute delete" @click="deleteVault(vault.id)"></i>
       <router-link class="route" :to="{name: 'Vault', params: {id: vault.id}}">
         <b>
           {{ vault.name }}
@@ -12,6 +13,8 @@
 
 <script>
 import { reactive } from '@vue/reactivity'
+import Pop from '../utils/Notifier'
+import { vaultsService } from '../services/VaultsService'
 export default {
   props: {
     vault: { type: Object, required: true }
@@ -21,7 +24,12 @@ export default {
 
     })
     return {
-      state
+      state,
+      async deleteVault(id) {
+        if (await Pop.confirm('Do you really want to delete this vault?')) {
+          vaultsService.delete(id)
+        }
+      }
     }
   }
 }
@@ -44,6 +52,10 @@ export default {
 .route{
   text-decoration: none;
   color: black;
+}
+.delete{
+  top: 0;
+  right: 2vw;
 }
 
 </style>
