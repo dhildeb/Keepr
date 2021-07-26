@@ -15,7 +15,7 @@
         <h5>Vaults: {{ state.vaults?.length }}</h5>
       </div>
     </div>
-    <h1>
+    <h1 data-toggle="modal" data-target="#createVaultModal">
       Vaults
       <i class="mdi mdi-plus text-success click add"></i>
     </h1>
@@ -32,6 +32,7 @@
   </div>
   <KeepModal />
   <CreateKeepModal />
+  <CreateVaultModal />
 </template>
 
 <script>

@@ -9,4 +9,8 @@ namespace Keepr.Models
     public Keep Keeps { get; set; }
     public Vault Vaults { get; set; }
   }
+  public class VaultKeepView
+  {
+
+  }
 }
