@@ -3,9 +3,7 @@
     <i class="mdi mdi-delete text-danger align-self-start z" title="Remove from Vault" @click.stop="removeKeep" v-if="state.vault.creatorId === state.account.id"></i>
     <div class="d-flex justify-content-between align-items-end">
       <span class="name text-light">{{ keep.name }}</span>
-      <router-link :to="{name: 'Profile', params: {id: keep.creator.id}}" data-target="#keepModal">
-        <img class="rounded-circle profile-icon" :src="keep.creator.picture" alt="">
-      </router-link>
+      <img class="rounded-circle profile-icon" :src="keep.creator.picture" alt="profile img" @click.stop="goThere">
     </div>
   </div>
 </template>
@@ -16,11 +14,14 @@ import { keepsService } from '../services/KeepsService'
 import { computed } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import { vaultKeepsService } from '../services/VaultKeepsService'
+import Pop from '../utils/Notifier'
+import { useRouter } from 'vue-router'
 export default {
   props: {
     keep: { type: Object, required: true }
   },
   setup(props) {
+    const router = useRouter()
     const state = reactive({
       vault: computed(() => AppState.ActiveVault),
       account: computed(() => AppState.account)
@@ -31,7 +32,12 @@ export default {
         keepsService.setActive(props.keep)
       },
       async removeKeep() {
-        await vaultKeepsService.delete(props.keep.vaultKeepId)
+        if (await Pop.confirm('Do you really want to remove this from your vault?')) {
+          await vaultKeepsService.delete(props.keep.vaultKeepId)
+        }
+      },
+      goThere() {
+        router.push({ name: 'Profile', params: { id: props.keep.creator.id } })
       }
     }
   }

@@ -5,7 +5,13 @@
 @import "./_overrides.scss";
 
 :root {
-  --grey: #f6f6f6;
+  --grey: #4c4f56;
+  --darker: #102032;
+  --dark: #104E84;
+  --blue: #326DE6;
+  --light: #E8E4DF;
+  --lighter: #BAAF7B;
+
 }
 
 #app {
@@ -42,3 +48,38 @@ main {
     }
   }
 }
+
+.bg-5{
+  background-color: var(--darker);
+}
+.bg-4{
+  background-color: var(--dark);
+}
+.bg-3{
+  background-color: var(--blue);
+}
+.bg-2{
+  background-color: var(--light);
+}
+.bg-1{
+  background-color: var(--lighter);
+}
+.bg-n{
+  background-color: var(--grey);
+}
+.text-5{
+  color: var(--darker);
+}
+.text-4{
+  color: var(--dark);
+}
+.text-3{
+  color: var(--blue);
+}
+.text-2{
+  color: var(--light);
+}
+.text-1{
+  color: var(--lighter);
+}
+

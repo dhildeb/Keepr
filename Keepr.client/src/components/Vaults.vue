@@ -1,5 +1,5 @@
 <template>
-  <div class="col-lg-3 col-md-4 col-sm-6 col-12 vault mb-4" v-if="!vault.private">
+  <div class="col-lg-3 col-md-4 col-sm-6 col-12 vault mb-4" v-if="route.params.id == state.account.id || !vault.isPrivate">
     <div class="border border-dark shadow click rounded h-100 w-100 d-flex align-items-center justify-content-center text-center">
       <i class="mdi mdi-delete text-danger position-absolute delete" @click="deleteVault(vault.id)"></i>
       <router-link class="route" :to="{name: 'Vault', params: {id: vault.id}}">
@@ -15,13 +15,17 @@
 import { reactive } from '@vue/reactivity'
 import Pop from '../utils/Notifier'
 import { vaultsService } from '../services/VaultsService'
+import { useRoute } from 'vue-router'
+import { computed } from '@vue/runtime-core'
+import { AppState } from '../AppState'
 export default {
   props: {
     vault: { type: Object, required: true }
   },
   setup() {
+    const route = useRoute()
     const state = reactive({
-
+      account: computed(() => AppState.account)
     })
     return {
       state,
@@ -29,7 +33,8 @@ export default {
         if (await Pop.confirm('Do you really want to delete this vault?')) {
           vaultsService.delete(id)
         }
-      }
+      },
+      route
     }
   }
 }

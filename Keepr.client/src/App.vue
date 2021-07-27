@@ -2,7 +2,7 @@
   <header>
     <Navbar />
   </header>
-  <main>
+  <main class="bg-2">
     <router-view />
   </main>
   <footer>
@@ -35,4 +35,16 @@ export default {
 .zoom{
   transform: scale(1.5);
 }
+::-webkit-scrollbar {
+  width: 1rem;
+}
+ ::-webkit-scrollbar-track {
+   height: 40vh;
+   background-color: #3ba6dc54;
+ }
+::-webkit-scrollbar-thumb {
+
+  background-color: #3ba5dc;
+}
+
 </style>

@@ -7,7 +7,7 @@
           <h4 class="m-auto">
             {{ state.keep.name }}
           </h4>
-          <i class="mdi mdi-delete text-danger pr-2 click" title="Delete" @click="deleteKeep" v-if="state.keep.creatorId === state.account.id && route.params?.id > 0"></i>
+          <i class="mdi mdi-delete text-danger pr-2 click" title="Delete" @click="deleteKeep" v-if="state.keep.creatorId === state.account.id"></i>
         </div>
         <div class="modal-body d-flex justify-content-between scrollable">
           <img class="img-fluid img" :src="state.keep.img" :alt="state.keep.name">
@@ -75,6 +75,7 @@ export default {
       },
       async deleteKeep() {
         if (await Pop.confirm('Are you sure you want to delete this?')) {
+          $('#keepModal').modal('toggle')
           keepsService.delete(state.keep.id)
         }
       },

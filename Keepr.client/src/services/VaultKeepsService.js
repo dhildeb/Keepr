@@ -6,7 +6,6 @@ class VaultKeepsService {
   async getKeepsByVaultId(id) {
     try {
       const res = await api.get(`api/vaults/${id}/keeps`)
-      console.log(res.data)
       AppState.keeps = res.data
     } catch (error) {
       Pop.toast(error)

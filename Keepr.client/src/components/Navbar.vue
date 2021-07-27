@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark d-flex justify-content-between">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-n d-flex justify-content-between">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
         <img class="img-fluid logo" src="https://repository-images.githubusercontent.com/167710157/50aa1580-5af6-11ea-8100-0c12db10ab9f" alt="">
