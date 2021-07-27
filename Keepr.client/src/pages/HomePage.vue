@@ -1,5 +1,5 @@
 <template>
-  <div class="masonry-with-columns p-5">
+  <div class="masonry-with-columns my-5">
     <Keep v-for="keep in state.keeps" :key="keep.id" :keep="keep" />
   </div>
   <KeepModal />

@@ -58,6 +58,11 @@ export default {
 .keep-img:hover{
   transform: scale(1.025);
 }
+@media screen and (min-width: 600px) {
+  .keep-img{
+    width: 100%;
+  }
+}
 .profile-icon{
   max-height: 5vh;
   max-width: 5vw;
