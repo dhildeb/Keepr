@@ -1,18 +1,18 @@
 <template>
   <div class="modal fade" id="createVaultModal" tabindex="-1" aria-labelledby="createVaultModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content bg-primary">
-        <div class="modal-header">
+      <div class="modal-content bg-3 text-light border border-dark">
+        <div class="modal-header justify-content-center">
           <h3>Create Vault</h3>
         </div>
-        <div class="modal-body d-flex justify-content-between">
-          <form @submit.prevent="createVault">
-            <input id="name" class="rounded" type="text" placeholder="Name">
-            <input id="description" class="rounded" type="text" placeholder="Description">
-            <p>
+        <div class="modal-body bg-light d-flex justify-content-between rounded-bottom p-5">
+          <form class="w-100" @submit.prevent="createVault">
+            <input id="name" class="rounded text-left input-group-text w-100 mb-3" type="text" placeholder="Name">
+            <input id="description" class="rounded text-left input-group-text w-100 mb-3" type="text" placeholder="Description">
+            <p class="text-dark">
               Private
+              <input id="isPrivate" type="checkbox" v-model="checked">
             </p>
-            <input id="isPrivate" type="checkbox" v-model="checked">
             <button class="btn btn-success">
               Submit
             </button>

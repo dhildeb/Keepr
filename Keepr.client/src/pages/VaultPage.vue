@@ -57,7 +57,6 @@ export default {
   name: 'Vault',
   setup() {
     const route = useRoute()
-    const router = useRouter()
     const state = reactive({
       keeps: computed(() => AppState.keeps),
       vault: computed(() => AppState.ActiveVault),
@@ -67,11 +66,11 @@ export default {
       vaultData: {}
     })
     onMounted(async() => {
-      await vaultsService.getById(route.params.id)
-      await vaultKeepsService.getKeepsByVaultId(route.params.id)
-      if (state.vault.creatorId !== state.account.id && state.vault.isPrivate) {
+      const router = useRouter()
+      if (await vaultsService.getById(route.params.id)) {
         router.push({ name: 'Home' })
       }
+      await vaultKeepsService.getKeepsByVaultId(route.params.id)
     })
     return {
       state,

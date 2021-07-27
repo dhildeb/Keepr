@@ -9,15 +9,18 @@ class VaultsService {
   }
 
   async getById(id) {
-    const res = await api.get('api/vaults/' + id)
-    console.log(res.data)
-    AppState.ActiveVault = res.data
+    try {
+      const res = await api.get('api/vaults/' + id)
+      AppState.ActiveVault = res.data
+    } catch (error) {
+      Pop.toast('vault is private')
+      return true
+    }
   }
 
   async create(data) {
     try {
       const res = await api.post('api/vaults', data)
-      console.log(res.data)
       AppState.vaults = [res.data, ...AppState.vaults]
     } catch (error) {
       Pop.toast(error)

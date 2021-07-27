@@ -15,7 +15,7 @@
         Login
       </button>
 
-      <div class="dropdown" v-else>
+      <div class="dropdown click" v-else>
         <div
           class="dropdown-toggle"
           @click="state.dropOpen = !state.dropOpen"
@@ -34,12 +34,12 @@
           @click="state.dropOpen = false"
         >
           <router-link :to="{ name: 'Profile', params: {id: state.account.id} }">
-            <div class="list-group-item list-group-item-action hoverable">
+            <div class="list-group-item list-group-item-action hoverable bg-n text-light p-hover">
               Profile
             </div>
           </router-link>
           <div
-            class="list-group-item list-group-item-action hoverable"
+            class="list-group-item list-group-item-action hoverable bg-n text-light"
             @click="logout"
           >
             logout
@@ -90,6 +90,12 @@ export default {
 a:hover {
   text-decoration: none;
 }
+a+div:hover{
+  background-color: red;
+}
+.p-hover:hover{
+  background-color: #4c4f56ca;
+}
 .nav-link{
   text-transform: uppercase;
 }
@@ -99,4 +105,5 @@ a:hover {
 .logo{
   max-height: 5vh;
 }
+
 </style>

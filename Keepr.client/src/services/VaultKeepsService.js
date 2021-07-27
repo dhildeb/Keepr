@@ -8,7 +8,6 @@ class VaultKeepsService {
       const res = await api.get(`api/vaults/${id}/keeps`)
       AppState.keeps = res.data
     } catch (error) {
-      Pop.toast(error)
     }
   }
 

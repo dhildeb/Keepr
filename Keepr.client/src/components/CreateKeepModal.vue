@@ -1,16 +1,16 @@
 <template>
   <div class="modal fade" id="createKeepModal" tabindex="-1" aria-labelledby="createKeepModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content bg-primary">
-        <div class="modal-header">
+      <div class="modal-content text-light bg-3">
+        <div class="modal-header justify-content-center border border-dark">
           <h3>Create Keep</h3>
         </div>
-        <div class="modal-body d-flex justify-content-between">
-          <form @submit.prevent="createKeep">
-            <input id="name" class="rounded" type="text" placeholder="Name">
-            <input id="description" class="rounded" type="text" placeholder="Description">
-            <input id="tag" class="rounded" type="text" placeholder="tag">
-            <input id="img" class="rounded" type="url" placeholder="Image Url">
+        <div class="modal-body d-flex justify-content-between rounded-bottom bg-light p-5">
+          <form class="form-group w-100" @submit.prevent="createKeep">
+            <input id="name" class="rounded text-left input-group-text w-100" type="text" placeholder="Name">
+            <input id="description" class="rounded text-left input-group-text w-100 my-3" type="text" placeholder="Description">
+            <input id="tag" class="rounded text-left input-group-text w-100" type="text" placeholder="tag">
+            <input id="img" class="rounded text-left input-group-text w-100 my-3" type="url" placeholder="Image Url">
             <button class="btn btn-success">
               Submit
             </button>
