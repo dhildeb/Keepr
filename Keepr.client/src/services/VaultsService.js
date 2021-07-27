@@ -16,7 +16,7 @@ class VaultsService {
 
   async create(data) {
     try {
-      const res = await api.get('api/vaults', data)
+      const res = await api.post('api/vaults', data)
       console.log(res.data)
       AppState.vaults = [res.data, ...AppState.vaults]
     } catch (error) {

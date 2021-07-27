@@ -6,9 +6,9 @@
           {{ state.vault.name }}
         </h1>
         <h1 v-else>
-          <div class="input-group" @submit.prevent="edit">
+          <div class="input-group">
             <input type="text" :placeholder="state.vault.name" v-model="state.vaultData.name">
-            <button class="btn btn-primary input-group-append" type="submit" @click="edit">
+            <button class="btn btn-primary input-group-append" @click="edit">
               submit
             </button>
           </div>

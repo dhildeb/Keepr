@@ -12,7 +12,7 @@
             <p>
               Private
             </p>
-            <input id="isPrivate" type="checkbox">
+            <input id="isPrivate" type="checkbox" v-model="checked">
             <button class="btn btn-success">
               Submit
             </button>
@@ -29,7 +29,6 @@ import { computed } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import $ from 'jquery'
 import { vaultsService } from '../services/VaultsService'
-import Pop from '../utils/Notifier'
 export default {
   setup() {
     const state = reactive({
@@ -44,9 +43,8 @@ export default {
         const data = {
           name: form.name.value,
           description: form.description.value,
-          isPrivate: form.isPrivate.value
+          isPrivate: form.isPrivate.checked
         }
-        console.log(data)
         await vaultsService.create(data)
         form.reset()
       }

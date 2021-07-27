@@ -3,9 +3,22 @@
     <div class="row about text-center my-5">
       <img class="col img-fluid" :src="state.profile.picture" :alt="state.profile.name">
       <div class="col">
-        <h2>
-          {{ state.profile.name?.split('@')[0] }}
-        </h2>
+        <div class="d-flex">
+          <h1 v-if="state.editN === false">
+            {{ state.profile.name?.split('@')[0] }}
+          </h1>
+          <h1 v-else>
+            <div class="input-group">
+              <input type="text" :placeholder="state.profile.name?.split('@')[0]" v-model="state.profileData.name">
+              <button class="btn btn-primary input-group-append" @click="edit">
+                submit
+              </button>
+            </div>
+          </h1>
+          <p v-if="state.account.id === state.route?.params?.id">
+            <i class="mdi mdi-pencil click ml-3" title="Edit Vault" @click="state.editN = !state.editN"></i>
+          </p>
+        </div>
         <h4>
           {{ state.profile.email }}
         </h4>
@@ -55,11 +68,20 @@ export default {
     })
     const state = reactive({
       profile: computed(() => AppState.profile),
+      account: computed(() => AppState.account),
       keeps: computed(() => AppState.keeps),
-      vaults: computed(() => AppState.vaults)
+      vaults: computed(() => AppState.vaults),
+      editN: false,
+      profileData: {},
+      route: computed(() => route)
     })
     return {
-      state
+      state,
+      edit() {
+        state.editN = false
+        console.log(state.profileData)
+        state.profileData = {}
+      }
     }
   }
 }
