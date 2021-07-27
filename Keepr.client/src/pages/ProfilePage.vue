@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { computed, onMounted, reactive, watchEffect } from 'vue'
+import { computed, reactive, watchEffect } from 'vue'
 import { AppState } from '../AppState'
 import { useRoute } from 'vue-router'
 import { profilesService } from '../services/ProfilesService'
@@ -46,12 +46,10 @@ export default {
   name: 'Profile',
   setup() {
     const route = useRoute()
-    onMounted(async() => {
+    watchEffect(async() => {
       await keepsService.getAll()
       await vaultsService.getAll()
       await profilesService.getById(route.params.id)
-    })
-    watchEffect(() => {
       AppState.keeps = AppState.keeps.filter(k => k.creatorId === route.params.id)
       AppState.vaults = AppState.vaults.filter(k => k.creatorId === route.params.id)
     })

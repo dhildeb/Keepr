@@ -30,8 +30,8 @@ export default {
       setActive() {
         keepsService.setActive(props.keep)
       },
-      removeKeep() {
-        vaultKeepsService.delete(props.keep.vaultKeepId, props.keep.id)
+      async removeKeep() {
+        await vaultKeepsService.delete(props.keep.vaultKeepId)
       }
     }
   }

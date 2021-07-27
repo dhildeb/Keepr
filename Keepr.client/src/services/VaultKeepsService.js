@@ -18,11 +18,9 @@ class VaultKeepsService {
     await api.post('api/vaultkeeps', data)
   }
 
-  async delete(id, keepId) {
-    console.log(id)
+  async delete(id) {
     const res = await api.delete('api/vaultkeeps/' + id)
-    console.log(res)
-    const i = AppState.keeps.findIndex(k => k.id === keepId)
+    const i = AppState.keeps.findIndex(k => k.id === res.data.keepId)
     AppState.keeps.splice(i, 1)
   }
 }

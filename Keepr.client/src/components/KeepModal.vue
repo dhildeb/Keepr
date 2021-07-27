@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header text-center">
-          <img class="img-fluid profile-icon rounded-circle" :title="state.keep.creator?.name" :src="state.keep.creator?.picture" :alt="state.keep.creator?.name" @click="goToProfile">
+          <img class="img-fluid profile-icon rounded-circle click" :title="state.keep.creator?.name" :src="state.keep.creator?.picture" :alt="state.keep.creator?.name" @click="goToProfile">
           <h4 class="m-auto">
             {{ state.keep.name }}
           </h4>
