@@ -2,7 +2,8 @@
   <div class="container">
     <div class="row flex-column">
       <div class="d-flex">
-        <h1 v-if="state.editN === false">
+        <small v-if="state.vault.isPrivate">private</small>
+        <h1 v-if="!state.editN">
           {{ state.vault.name }}
         </h1>
         <h1 v-else>
@@ -50,16 +51,13 @@ import { reactive } from '@vue/reactivity'
 import { computed, onMounted } from '@vue/runtime-core'
 import { vaultsService } from '../services/VaultsService'
 import { vaultKeepsService } from '../services/VaultKeepsService'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { AppState } from '../AppState'
 export default {
   name: 'Vault',
   setup() {
     const route = useRoute()
-    onMounted(async() => {
-      await vaultsService.getById(route.params.id)
-      await vaultKeepsService.getKeepsByVaultId(route.params.id)
-    })
+    const router = useRouter()
     const state = reactive({
       keeps: computed(() => AppState.keeps),
       vault: computed(() => AppState.ActiveVault),
@@ -67,6 +65,13 @@ export default {
       editD: false,
       editN: false,
       vaultData: {}
+    })
+    onMounted(async() => {
+      await vaultsService.getById(route.params.id)
+      await vaultKeepsService.getKeepsByVaultId(route.params.id)
+      if (state.vault.creatorId !== state.account.id && state.vault.isPrivate) {
+        router.push({ name: 'Home' })
+      }
     })
     return {
       state,

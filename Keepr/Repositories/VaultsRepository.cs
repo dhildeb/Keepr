@@ -30,7 +30,9 @@ namespace Keepr.Repositories
     }
     public Vault GetById(int id)
     {
-      var sql = @"SELECT * 
+      var sql = @"SELECT 
+      v.*, 
+      a.*
       FROM vaults v 
       JOIN accounts a ON a.id = v.creatorId
       WHERE v.id = @id";

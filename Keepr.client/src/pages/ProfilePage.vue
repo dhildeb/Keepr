@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row about text-center my-5">
-      <img class="col img-fluid" :src="state.profile.picture" :alt="state.profile.name">
+      <img class="img-fluid" :src="state.profile.picture" :alt="state.profile.name">
       <div class="col">
         <div class="d-flex">
           <h1 v-if="state.editN === false">
@@ -16,10 +16,10 @@
             </div>
           </h1>
           <p v-if="state.account.id === state.route?.params?.id">
-            <i class="mdi mdi-pencil click ml-3" title="Edit Vault" @click="state.editN = !state.editN"></i>
+            <i class="mdi mdi-pencil click ml-3" title="Edit Profile Name" @click="state.editN = !state.editN"></i>
           </p>
         </div>
-        <h4>
+        <h4 class="text-left">
           {{ state.profile.email }}
         </h4>
       </div>
@@ -28,14 +28,14 @@
         <h5>Vaults: {{ state.vaults?.length }}</h5>
       </div>
     </div>
-    <h1 data-toggle="modal" data-target="#createVaultModal">
+    <h1 data-toggle="modal" data-target="#createVaultModal" title="Create Vault">
       Vaults
       <i class="mdi mdi-plus text-success click add"></i>
     </h1>
     <div class="row">
       <Vaults v-for="vault in state.vaults" :key="vault.id" :vault="vault" />
     </div>
-    <h1 data-toggle="modal" data-target="#createKeepModal">
+    <h1 data-toggle="modal" data-target="#createKeepModal" title="Create Keep">
       Keeps
       <i class="mdi mdi-plus text-success click add"></i>
     </h1>

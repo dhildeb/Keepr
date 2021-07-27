@@ -34,8 +34,8 @@ class VaultsService {
 
   async delete(id) {
     const res = await api.delete('api/vaults/' + id)
-    console.log(res.data)
     AppState.vaults = AppState.vaults.filter(v => v.id !== id)
+    Pop.toast(res.data, 'success')
   }
 }
 

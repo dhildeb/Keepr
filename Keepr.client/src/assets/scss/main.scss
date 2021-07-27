@@ -44,7 +44,7 @@ main {
     div:nth-child(#{$i}) {
       $h: (random(400) + 100) + px;
       height: $h;
-      // line-height: $h;
+     // line-height: $h;
     }
   }
 }

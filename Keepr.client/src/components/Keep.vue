@@ -1,9 +1,9 @@
 <template>
-  <div class="keep-img rounded shadow d-flex justify-content-between align-items-end p-2" :style="{'background-image': 'url(' + keep.img + ')'}" data-toggle="modal" data-target="#keepModal" @click="setActive">
-    <i class="mdi mdi-delete text-danger align-self-start z" title="Remove from Vault" @click.stop="removeKeep" v-if="state.vault.creatorId === state.account.id"></i>
+  <div class="keep-img rounded shadow d-flex justify-content-between align-items-end px-2" :style="{'background-image': 'url(' + keep.img + ')'}" data-toggle="modal" data-target="#keepModal" @click="setActive">
+    <i class="mdi mdi-delete text-danger align-self-start" title="Remove from Vault" @click.stop="removeKeep" v-if="state.vault.creatorId === state.account.id && route.params?.id > 0"></i>
     <div class="d-flex justify-content-between align-items-end">
       <span class="name text-light">{{ keep.name }}</span>
-      <img class="rounded-circle profile-icon" :src="keep.creator.picture" alt="profile img" @click.stop="goThere">
+      <img class="rounded-circle profile-icon" :src="keep.creator.picture" alt="profile img" :title="'Go to'+keep.creator.name?.split('@')[0]+' profile'" @click.stop="goThere">
     </div>
   </div>
 </template>
@@ -15,19 +15,21 @@ import { computed } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import { vaultKeepsService } from '../services/VaultKeepsService'
 import Pop from '../utils/Notifier'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 export default {
   props: {
     keep: { type: Object, required: true }
   },
   setup(props) {
     const router = useRouter()
+    const route = useRoute()
     const state = reactive({
       vault: computed(() => AppState.ActiveVault),
       account: computed(() => AppState.account)
     })
     return {
       state,
+      route,
       setActive() {
         keepsService.setActive(props.keep)
       },
