@@ -7,38 +7,41 @@
           <h4 class="m-auto">
             {{ state.keep.name }}
           </h4>
-          <i class="mdi mdi-delete text-danger pr-2 click" title="Delete Keep" @click="deleteKeep" v-if="state.keep.creatorId === state.account.id"></i>
+          <i class="mdi mdi-close-box text-danger click zoom" @click="close"></i>
         </div>
         <div class="modal-body">
           <div class="container">
             <div class="row">
-              <img class="col-md-6 col-12 img-fluid img w-sm-100" :src="state.keep.img" :alt="state.keep.name">
-              <div class="col d-flex flex-column justify-content-between">
+              <img class="col img-fluid img" :src="state.keep.img" :alt="state.keep.name">
+              <div class="col flex-grow-1">
                 <p class="p-3">
                   {{ state.keep.description }}
                 </p>
-              </div>
-              <div class="col-12 dropdown text-center my-4">
-                <button class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">
-                  Add to Vault
-                </button>
-                <div class="dropdown-menu set-h">
-                  <p class="dropdown-item-text click hoverable" v-for="v in state.vaults" :key="v.id" @click="addToVault(v.id)">
-                    {{ v.name }}
-                  </p>
+                <div class="row justify-content-between align-content-end bottom">
+                  <div class="text-center align-self-end">
+                    <i class="mdi mdi-eye" title="total views">
+                      {{ state.keep.views }}
+                    </i>
+                    <i class="mdi mdi-lock px-3" title="total keeps">
+                      {{ state.keep.keeps }}
+                    </i>
+                    <i class="mdi mdi-share" title="total shares">
+                      {{ state.keep.shares }}
+                    </i>
+                  </div>
+                  <div class="dropdown text-center my-4 align-self-end">
+                    <button class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">
+                      Add to Vault
+                    </button>
+                    <div class="dropdown-menu set-h">
+                      <p class="dropdown-item-text click hoverable" v-for="v in state.vaults" :key="v.id" @click="addToVault(v.id)">
+                        {{ v.name }}
+                      </p>
+                    </div>
+                  </div>
+                  <i class="mdi mdi-delete text-danger click align-self-end zoom" title="Delete Keep" @click="deleteKeep" v-if="state.keep.creatorId === state.account.id"></i>
                 </div>
               </div>
-            </div>
-            <div class="text-center">
-              <i class="mdi mdi-eye" title="total views">
-                {{ state.keep.views }}
-              </i>
-              <i class="mdi mdi-lock px-3" title="total keeps">
-                {{ state.keep.keeps }}
-              </i>
-              <i class="mdi mdi-share" title="total shares">
-                {{ state.keep.shares }}
-              </i>
             </div>
           </div>
         </div>
@@ -98,7 +101,7 @@ export default {
   max-height: 50vh;
   width: 50%;
 }
-.mdi-delete{
+.zoom{
   transform: scale(1.5);
 }
 .scrollable{
@@ -108,7 +111,14 @@ export default {
   overflow-y: auto;
   height: 250px;
 }
+.min-h{
+  min-height: 75vh;
+}
 .hoverable:hover{
   background-color: #e5e5e5;
+}
+.bottom{
+  position: absolute;
+  bottom: 0;
 }
 </style>
