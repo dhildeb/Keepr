@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <div class="row flex-column">
-      <div class="d-flex">
+    <div class="row flex-column p-3">
+      <div class="d-flex justify-content-center">
         <small v-if="state.vault.isPrivate">private</small>
         <h1 v-if="!state.editN">
           {{ state.vault.name }}
@@ -39,7 +39,7 @@
         {{ state.keeps.length }}
       </p>
     </div>
-    <div class="masonry-with-columns p-5">
+    <div class="masonry-with-columns mt-5">
       <Keep v-for="keep in state.keeps" :key="keep.id" :keep="keep" />
     </div>
   </div>

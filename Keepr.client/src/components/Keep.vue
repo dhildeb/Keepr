@@ -58,11 +58,6 @@ export default {
 .keep-img:hover{
   transform: scale(1.025);
 }
-
-.profile-icon{
-  max-height: 5vh;
-  max-width: 5vw;
-}
 .name{
     text-shadow: 0px 1px 4px black;
 }

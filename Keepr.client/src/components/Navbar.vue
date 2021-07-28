@@ -117,6 +117,6 @@ a+div:hover{
   color: #a5c2ff;
 }
 .p-xl{
-  padding-left: 40px;
+  padding-left: 25px;
 }
 </style>

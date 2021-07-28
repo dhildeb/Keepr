@@ -21,7 +21,7 @@ class VaultKeepsService {
     const res = await api.delete('api/vaultkeeps/' + id)
     const i = AppState.keeps.findIndex(k => k.id === res.data.keepId)
     AppState.keeps.splice(i, 1)
-    Pop.toast(res.data)
+    Pop.toast('Successfully Removed', 'success')
   }
 }
 export const vaultKeepsService = new VaultKeepsService()

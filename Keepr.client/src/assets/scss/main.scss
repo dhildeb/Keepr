@@ -32,9 +32,16 @@ main {
 .click{
   cursor: pointer;
 }
+.profile-icon{
+  max-height: 40px;
+  max-width: 40px;
+}
 .masonry-with-columns {
   columns: 6 200px;
   column-gap: 1rem;
+  padding: 15px;
+  padding-top: 50px;
+  padding-bottom: 50px;
   contain: content;
   section {
     width: 150px;

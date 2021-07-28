@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="row about text-center my-5">
+    <div class="row about text-center my-5 p-3">
       <img class="img-fluid" :src="state.profile.picture" alt="profile picture">
       <div class="col">
         <div class="d-flex">
@@ -23,7 +23,7 @@
           {{ state.profile.email }}
         </p>
       </div>
-      <div class="col d-flex flex-column">
+      <div class="col d-flex flex-column align-items-center mt-4">
         <b>Keeps: {{ state.keeps?.length }}</b>
         <b>Vaults: {{ state.vaults?.length }}</b>
       </div>
@@ -39,7 +39,7 @@
       Keeps
       <i class="mdi mdi-plus text-success click add" data-toggle="modal" data-target="#createKeepModal" title="Create Keep"></i>
     </h1>
-    <div class="masonry-with-columns p-5">
+    <div class="masonry-with-columns mt-5">
       <Keep v-for="keep in state.keeps" :key="keep.id" :keep="keep" />
     </div>
   </div>

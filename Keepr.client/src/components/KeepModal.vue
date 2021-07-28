@@ -9,20 +9,24 @@
           </h4>
           <i class="mdi mdi-delete text-danger pr-2 click" title="Delete Keep" @click="deleteKeep" v-if="state.keep.creatorId === state.account.id"></i>
         </div>
-        <div class="modal-body d-flex justify-content-between scrollable">
-          <img class="img-fluid img" :src="state.keep.img" :alt="state.keep.name">
-          <div class="w-50 d-flex flex-column justify-content-between">
-            <p class="p-3">
-              {{ state.keep.description }}
-            </p>
-            <div class="dropdown m-auto">
-              <button class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">
-                Add to Vault
-              </button>
-              <div class="dropdown-menu set-h">
-                <p class="dropdown-item-text click hoverable" v-for="v in state.vaults" :key="v.id" @click="addToVault(v.id)">
-                  {{ v.name }}
+        <div class="modal-body">
+          <div class="container">
+            <div class="row">
+              <img class="col-md-6 col-12 img-fluid img w-sm-100" :src="state.keep.img" :alt="state.keep.name">
+              <div class="col d-flex flex-column justify-content-between">
+                <p class="p-3">
+                  {{ state.keep.description }}
                 </p>
+              </div>
+              <div class="col-12 dropdown text-center my-4">
+                <button class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">
+                  Add to Vault
+                </button>
+                <div class="dropdown-menu set-h">
+                  <p class="dropdown-item-text click hoverable" v-for="v in state.vaults" :key="v.id" @click="addToVault(v.id)">
+                    {{ v.name }}
+                  </p>
+                </div>
               </div>
             </div>
             <div class="text-center">
@@ -90,15 +94,12 @@ export default {
 
 <style scoped>
 .img{
-  object-fit: contain;
+  object-fit: cover;
+  max-height: 50vh;
   width: 50%;
 }
 .mdi-delete{
   transform: scale(1.5);
-}
-.profile-icon{
-  max-height: 5vh;
-  max-width: 5vw;
 }
 .scrollable{
   overflow-y: auto;
