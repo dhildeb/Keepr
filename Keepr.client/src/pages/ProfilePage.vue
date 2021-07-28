@@ -41,14 +41,14 @@
     </div>
     <h1>
       Vaults
-      <i class="mdi mdi-plus text-success click add" data-toggle="modal" data-target="#createVaultModal" title="Create Vault"></i>
+      <i class="mdi mdi-plus text-success click add" data-toggle="modal" data-target="#createVaultModal" title="Create Vault" v-if="state.account.id === state.route.params.id"></i>
     </h1>
     <div class="row">
       <Vaults v-for="vault in state.vaults" :key="vault.id" :vault="vault" />
     </div>
     <h1>
       Keeps
-      <i class="mdi mdi-plus text-success click add" data-toggle="modal" data-target="#createKeepModal" title="Create Keep"></i>
+      <i class="mdi mdi-plus text-success click add" data-toggle="modal" data-target="#createKeepModal" title="Create Keep" v-if="state.account.id === state.route.params.id"></i>
     </h1>
     <div class="masonry-with-columns mt-5">
       <Keep v-for="keep in state.keeps" :key="keep.id" :keep="keep" />
