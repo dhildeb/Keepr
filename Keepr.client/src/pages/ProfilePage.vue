@@ -1,7 +1,16 @@
 <template>
   <div class="container">
     <div class="row about text-center my-5 p-3">
-      <img class="img-fluid" :src="state.profile.picture" alt="profile picture">
+      <img class="img-fluid" :src="state.profile.picture" alt="profile picture" v-if="state.editI === false">
+      <div class="input-group" v-else>
+        <input type="text" :placeholder="state.profile?.picture" v-model="state.profileData.picture">
+        <button class="btn btn-primary input-group-append" @click="edit">
+          submit
+        </button>
+      </div>
+      <p v-if="state.account.id === state.route.params.id">
+        <i class="mdi mdi-pencil click ml-3" title="Edit Profile Picture" @click="state.editI = !state.editI"></i>
+      </p>
       <div class="col">
         <div class="d-flex">
           <h1 v-if="state.editN === false">
@@ -15,7 +24,7 @@
               </button>
             </div>
           </h1>
-          <p v-if="state.account.id === state.route?.params?.id">
+          <p v-if="state.account.id === state.route.params.id">
             <i class="mdi mdi-pencil click ml-3" title="Edit Profile Name" @click="state.editN = !state.editN"></i>
           </p>
         </div>
@@ -49,22 +58,21 @@
 </template>
 
 <script>
-import { computed, reactive, watchEffect } from 'vue'
+import { computed, reactive, onMounted, watchEffect } from 'vue'
 import { AppState } from '../AppState'
 import { useRoute } from 'vue-router'
 import { profilesService } from '../services/ProfilesService'
-import { keepsService } from '../services/KeepsService'
-import { vaultsService } from '../services/VaultsService'
+
 export default {
   name: 'Profile',
   setup() {
     const route = useRoute()
+    onMounted(async() => {
+    })
     watchEffect(async() => {
-      await keepsService.getAll()
-      await vaultsService.getAll()
       await profilesService.getById(route.params.id)
-      AppState.keeps = AppState.keeps.filter(k => k.creatorId === route.params.id)
-      AppState.vaults = AppState.vaults.filter(k => k.creatorId === route.params.id)
+      await profilesService.getKeepsByProfileId(route.params.id)
+      await profilesService.getVaultsByProfileId(route.params.id)
     })
     const state = reactive({
       profile: computed(() => AppState.profile),
@@ -72,6 +80,7 @@ export default {
       keeps: computed(() => AppState.keeps),
       vaults: computed(() => AppState.vaults),
       editN: false,
+      editI: false,
       profileData: {},
       route: computed(() => route)
     })
@@ -79,7 +88,8 @@ export default {
       state,
       edit() {
         state.editN = false
-        console.log(state.profileData)
+        state.editI = false
+        profilesService.update(state.account.id, state.profileData)
         state.profileData = {}
       }
     }

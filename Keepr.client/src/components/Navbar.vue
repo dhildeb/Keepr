@@ -105,7 +105,7 @@ a+div:hover{
   color: var(--primary);
 }
 .logo{
-  max-height: 5vh;
+  max-height: 4vh;
   transform: scale(1.5);
 }
 .drop-pos{

@@ -94,10 +94,18 @@ namespace Keepr.Repositories
     internal ActionResult<List<Keep>> GetKeepsByProfileId(string id)
     {
       var sql = @"
-      SELECT * FROM keeps
+      SELECT 
+      k.*,
+      a.* 
+      FROM keeps k
+      JOIN accounts a ON k.creatorId = a.id
       WHERE creatorId = @id;
       ";
-      return _db.Query<Keep>(sql, new { id }).ToList();
+      return _db.Query<Keep, Account, Keep>(sql, (k, a) =>
+      {
+        k.Creator = a;
+        return k;
+      }, new { id }).ToList();
     }
 
     public int Delete(int id)
