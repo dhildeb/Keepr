@@ -1,12 +1,15 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-n d-flex justify-content-between">
-    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
+    <router-link class="navbar-brand d-flex" title="Home Page" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
         <img class="img-fluid logo" src="https://repository-images.githubusercontent.com/167710157/50aa1580-5af6-11ea-8100-0c12db10ab9f" alt="">
       </div>
     </router-link>
+    <h1 class="text-3 title">
+      KEEPR
+    </h1>
 
-    <span class="navbar-text">
+    <span class="navbar-text p-xl">
       <button
         class="btn btn-outline-primary text-uppercase"
         @click="login"
@@ -28,7 +31,7 @@
           />
         </div>
         <div
-          class="dropdown-menu p-0 list-group w-100"
+          class="dropdown-menu p-0 list-group w-100 drop-pos"
           :class="{ show: state.dropOpen }"
           @click="state.dropOpen = false"
         >
@@ -90,7 +93,7 @@ a:hover {
   text-decoration: none;
 }
 a+div:hover{
-  background-color: red;
+  background-color: #4c4f56ca;
 }
 .p-hover:hover{
   background-color: #4c4f56ca;
@@ -103,6 +106,16 @@ a+div:hover{
 }
 .logo{
   max-height: 5vh;
+  transform: scale(1.5);
 }
-
+.drop-pos{
+  left: -89px;
+  top: 48px;
+}
+.title{
+  font-weight: 100;
+}
+.p-xl{
+  padding-left: 40px;
+}
 </style>

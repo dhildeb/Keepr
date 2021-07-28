@@ -1,11 +1,11 @@
 <template>
-  <div class="keep-img rounded shadow d-flex justify-content-between align-items-end px-2" :style="{'background-image': 'url(' + keep.img + ')'}" data-toggle="modal" data-target="#keepModal" @click="setActive">
+  <section class="keep-img rounded shadow d-flex justify-content-between align-items-end px-2" :style="{'background-image': 'url(' + keep.img + ')'}" data-toggle="modal" data-target="#keepModal" @click="setActive">
     <i class="mdi mdi-delete text-danger align-self-start" title="Remove from Vault" @click.stop="removeKeep" v-if="state.vault.creatorId === state.account.id && route.params?.id > 0"></i>
-    <div class="d-flex justify-content-between align-items-end">
+    <div class="d-flex justify-content-between align-items-end w-100 pb-2">
       <span class="name text-light">{{ keep.name }}</span>
       <img class="rounded-circle profile-icon" :src="keep.creator.picture" alt="profile img" :title="'Go to'+keep.creator.name?.split('@')[0]+' profile'" @click.stop="goThere">
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -58,11 +58,7 @@ export default {
 .keep-img:hover{
   transform: scale(1.025);
 }
-@media screen and (min-width: 600px) {
-  .keep-img{
-    width: 100%;
-  }
-}
+
 .profile-icon{
   max-height: 5vh;
   max-width: 5vw;

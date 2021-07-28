@@ -1,8 +1,8 @@
 <template>
   <div class="modal fade" id="createKeepModal" tabindex="-1" aria-labelledby="createKeepModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content text-light bg-3">
-        <div class="modal-header justify-content-center border border-dark">
+      <div class="modal-content bg-whitish">
+        <div class="modal-header justify-content-center">
           <h3>Create Keep</h3>
         </div>
         <div class="modal-body d-flex justify-content-between rounded-bottom bg-light p-5">
@@ -75,5 +75,8 @@ export default {
 .profile-icon{
   max-height: 5vh;
   max-width: 5vw;
+}
+.bg-whitish{
+  background-color: #e9ecef;
 }
 </style>
