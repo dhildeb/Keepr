@@ -1,7 +1,7 @@
 <template>
   <div class="modal fade" id="createVaultModal" tabindex="-1" aria-labelledby="createVaultModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content bg-3 text-light border border-dark">
+      <div class="modal-content bg-whitish">
         <div class="modal-header justify-content-center">
           <h3>Create Vault</h3>
         </div>
@@ -64,5 +64,8 @@ export default {
 .profile-icon{
   max-height: 5vh;
   max-width: 5vw;
+}
+.bg-whitish{
+  background-color: #e9ecef;
 }
 </style>

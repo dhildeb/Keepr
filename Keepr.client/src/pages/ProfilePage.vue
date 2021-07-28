@@ -28,16 +28,16 @@
         <b>Vaults: {{ state.vaults?.length }}</b>
       </div>
     </div>
-    <h1 data-toggle="modal" data-target="#createVaultModal" title="Create Vault">
+    <h1>
       Vaults
-      <i class="mdi mdi-plus text-success click add"></i>
+      <i class="mdi mdi-plus text-success click add" data-toggle="modal" data-target="#createVaultModal" title="Create Vault"></i>
     </h1>
     <div class="row">
       <Vaults v-for="vault in state.vaults" :key="vault.id" :vault="vault" />
     </div>
-    <h1 data-toggle="modal" data-target="#createKeepModal" title="Create Keep">
+    <h1>
       Keeps
-      <i class="mdi mdi-plus text-success click add"></i>
+      <i class="mdi mdi-plus text-success click add" data-toggle="modal" data-target="#createKeepModal" title="Create Keep"></i>
     </h1>
     <div class="masonry-with-columns p-5">
       <Keep v-for="keep in state.keeps" :key="keep.id" :keep="keep" />

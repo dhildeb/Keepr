@@ -19,8 +19,8 @@
               <button class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">
                 Add to Vault
               </button>
-              <div class="dropdown-menu">
-                <p class="dropdown-item" v-for="v in state.vaults" :key="v.id" @click="addToVault(v.id)">
+              <div class="dropdown-menu set-h">
+                <p class="dropdown-item-text click hoverable" v-for="v in state.vaults" :key="v.id" @click="addToVault(v.id)">
                   {{ v.name }}
                 </p>
               </div>
@@ -102,5 +102,12 @@ export default {
 }
 .scrollable{
   overflow-y: auto;
+}
+.set-h{
+  overflow-y: auto;
+  height: 250px;
+}
+.hoverable:hover{
+  background-color: #e5e5e5;
 }
 </style>
