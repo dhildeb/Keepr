@@ -5,7 +5,7 @@
         <img class="img-fluid logo" src="https://repository-images.githubusercontent.com/167710157/50aa1580-5af6-11ea-8100-0c12db10ab9f" alt="">
       </div>
     </router-link>
-    <h1 class="text-3 title">
+    <h1 class="title">
       KEEPR
     </h1>
 
@@ -114,6 +114,7 @@ a+div:hover{
 }
 .title{
   font-weight: 100;
+  color: #a5c2ff;
 }
 .p-xl{
   padding-left: 40px;

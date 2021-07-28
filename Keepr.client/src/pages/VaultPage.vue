@@ -19,17 +19,17 @@
         </p>
       </div>
       <div class="d-flex">
-        <h5 v-if="state.editD === false">
+        <h2 v-if="state.editD === false">
           {{ state.vault.description }}
-        </h5>
-        <h5 v-else>
+        </h2>
+        <h2 v-else>
           <div class="input-group" @submit.prevent="editD">
             <input type="text" :placeholder="state.vault.description" v-model="state.vaultData.description">
             <button class="btn btn-primary input-group-append" type="submit" @click="edit">
               submit
             </button>
           </div>
-        </h5>
+        </h2>
         <p v-if="state.account.id === state.vault.creatorId">
           <i class="mdi mdi-pencil click ml-3" title="Edit Vault" @click="state.editD = !state.editD"></i>
         </p>

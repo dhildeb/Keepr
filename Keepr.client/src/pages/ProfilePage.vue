@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row about text-center my-5">
-      <img class="img-fluid" :src="state.profile.picture" :alt="state.profile.name">
+      <img class="img-fluid" :src="state.profile.picture" alt="profile picture">
       <div class="col">
         <div class="d-flex">
           <h1 v-if="state.editN === false">
@@ -19,13 +19,13 @@
             <i class="mdi mdi-pencil click ml-3" title="Edit Profile Name" @click="state.editN = !state.editN"></i>
           </p>
         </div>
-        <h4 class="text-left">
+        <p class="text-left">
           {{ state.profile.email }}
-        </h4>
+        </p>
       </div>
       <div class="col d-flex flex-column">
-        <h5>Keeps: {{ state.keeps?.length }}</h5>
-        <h5>Vaults: {{ state.vaults?.length }}</h5>
+        <b>Keeps: {{ state.keeps?.length }}</b>
+        <b>Vaults: {{ state.vaults?.length }}</b>
       </div>
     </div>
     <h1 data-toggle="modal" data-target="#createVaultModal" title="Create Vault">

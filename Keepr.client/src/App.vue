@@ -8,8 +8,8 @@
   <footer>
     <div class="text-center bg-light mt-5 p-3">
       <em>Created By Daniel Hildebrandt</em>
-      <a href="https://github.com/dhildeb" class="mdi mdi-github text-dark zoom mx-3 "></a>
-      <a href="https://www.linkedin.com/in/daniel-hildebrandt/" class="mdi mdi-linkedin text-primary zoom "></a>
+      <a href="https://github.com/dhildeb" title="github page" class="mdi mdi-github text-dark zoom mx-3 "></a>
+      <a href="https://www.linkedin.com/in/daniel-hildebrandt/" title="linkedin page" class="mdi mdi-linkedin text-primary zoom "></a>
     </div>
   </footer>
 </template>
