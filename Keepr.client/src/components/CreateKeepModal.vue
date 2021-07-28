@@ -4,6 +4,7 @@
       <div class="modal-content bg-whitish">
         <div class="modal-header justify-content-center">
           <h3>Create Keep</h3>
+          <i class="mdi mdi-close-box text-danger click zoom position-absolute close" title="Close" @click="close"></i>
         </div>
         <div class="modal-body d-flex justify-content-between rounded-bottom bg-light p-5">
           <form class="form-group w-100" @submit.prevent="createKeep">
@@ -58,6 +59,9 @@ export default {
         }
         keepsService.create(data)
         form.reset()
+      },
+      close() {
+        $('#createKeepModal').modal('toggle')
       }
     }
   }
@@ -78,5 +82,8 @@ export default {
 }
 .bg-whitish{
   background-color: #e9ecef;
+}
+.close{
+  right:15px;
 }
 </style>

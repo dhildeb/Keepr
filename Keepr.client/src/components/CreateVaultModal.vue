@@ -4,6 +4,7 @@
       <div class="modal-content bg-whitish">
         <div class="modal-header justify-content-center">
           <h3>Create Vault</h3>
+          <i class="mdi mdi-close-box text-danger click zoom position-absolute close" title="Close" @click="close"></i>
         </div>
         <div class="modal-body bg-light d-flex justify-content-between rounded-bottom p-5">
           <form class="w-100" @submit.prevent="createVault">
@@ -47,6 +48,9 @@ export default {
         }
         await vaultsService.create(data)
         form.reset()
+      },
+      close() {
+        $('#createVaultModal').modal('toggle')
       }
     }
   }
@@ -67,5 +71,8 @@ export default {
 }
 .bg-whitish{
   background-color: #e9ecef;
+}
+.close{
+  right: 15px;
 }
 </style>

@@ -7,7 +7,7 @@
           <h4 class="m-auto">
             {{ state.keep.name }}
           </h4>
-          <i class="mdi mdi-close-box text-danger click zoom" @click="close"></i>
+          <i class="mdi mdi-close-box text-danger click zoom" title="Close" @click="close"></i>
         </div>
         <div class="modal-body">
           <div class="container">
@@ -17,7 +17,7 @@
                 <p class="p-3">
                   {{ state.keep.description }}
                 </p>
-                <div class="row justify-content-between align-content-end bottom">
+                <div class="row justify-content-between align-content-end bottom w-100">
                   <div class="text-center align-self-end">
                     <i class="mdi mdi-eye" title="total views">
                       {{ state.keep.views }}
@@ -89,6 +89,9 @@ export default {
       async addToVault(vaultId) {
         state.keep.keeps++
         await vaultKeepsService.addToVault(vaultId, state.keep.id)
+      },
+      close() {
+        $('#keepModal').modal('toggle')
       }
     }
   }
