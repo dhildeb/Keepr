@@ -8,19 +8,18 @@ class ProfilesService {
   }
 
   async update(id, data) {
-    const res = await api.put('api/profiles/' + id, data)
-    console.log(res.data)
+    await api.put('api/profiles/' + id, data)
+    AppState.profile.name = data.name || AppState.profile.name
+    AppState.profile.picture = data.picture || AppState.profile.picture
   }
 
   async getKeepsByProfileId(id) {
     const res = await api.get(`api/profiles/${id}/keeps`)
-    console.log(res.data)
     AppState.keeps = res.data
   }
 
   async getVaultsByProfileId(id) {
     const res = await api.get(`api/profiles/${id}/vaults`)
-    console.log(res.data)
     AppState.vaults = res.data
   }
 }

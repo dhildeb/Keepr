@@ -24,7 +24,7 @@
           @click="state.dropOpen = !state.dropOpen"
         >
           <img
-            :src="user.picture"
+            :src="state.account.picture"
             alt="user photo"
             height="40"
             class="rounded"
