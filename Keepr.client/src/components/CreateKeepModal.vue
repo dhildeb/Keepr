@@ -9,7 +9,7 @@
         <div class="modal-body d-flex justify-content-between rounded-bottom bg-light p-5">
           <form class="form-group w-100" @submit.prevent="createKeep">
             <input id="name" class="rounded text-left input-group-text w-100" type="text" placeholder="Name">
-            <input id="description" class="rounded text-left input-group-text w-100 my-3" type="text" placeholder="Description">
+            <input id="description" class="rounded text-left input-group-text w-100 my-3" type="text" placeholder="Description" maxlength="255">
             <input id="tag" class="rounded text-left input-group-text w-100" type="text" placeholder="tag">
             <input id="img" class="rounded text-left input-group-text w-100 my-3" type="url" placeholder="Image Url">
             <button class="btn btn-success">
