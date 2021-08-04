@@ -12,11 +12,25 @@
         <div class="modal-body">
           <div class="container">
             <div class="row">
-              <img class="col img-fluid img" :src="state.keep.img" :alt="state.keep.name">
+              <img class="col-md-6 col-12 img-fluid img" :src="state.keep.img" :alt="state.keep.name">
               <div class="col flex-grow-1">
-                <p class="p-3">
-                  {{ state.keep.description }}
-                </p>
+                <div class="row">
+                  <p class="p-3">
+                    {{ state.keep.description }}
+                  </p>
+                </div>
+                <div class="row pb-3">
+                  <div class="dropdown text-center my-4 align-self-center m-auto pb-3" v-if="state.account?.id">
+                    <button class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">
+                      Add to Vault
+                    </button>
+                    <div class="dropdown-menu set-h">
+                      <p class="dropdown-item-text click hoverable" v-for="v in state.vaults" :key="v.id" @click="addToVault(v.id)">
+                        {{ v.name }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
                 <div class="row justify-content-between align-content-end bottom w-100">
                   <div class="text-center align-self-end">
                     <i class="mdi mdi-eye" title="total views">
@@ -28,16 +42,6 @@
                     <i class="mdi mdi-share" title="total shares">
                       {{ state.keep.shares }}
                     </i>
-                  </div>
-                  <div class="dropdown text-center my-4 align-self-end">
-                    <button class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">
-                      Add to Vault
-                    </button>
-                    <div class="dropdown-menu set-h">
-                      <p class="dropdown-item-text click hoverable" v-for="v in state.vaults" :key="v.id" @click="addToVault(v.id)">
-                        {{ v.name }}
-                      </p>
-                    </div>
                   </div>
                   <i class="mdi mdi-delete text-danger click align-self-end zoom" title="Delete Keep" @click="deleteKeep" v-if="state.keep.creatorId === state.account.id"></i>
                 </div>
@@ -112,7 +116,7 @@ export default {
 }
 .set-h{
   overflow-y: auto;
-  height: 250px;
+  max-height: 250px;
 }
 .min-h{
   min-height: 75vh;
